@@ -1,0 +1,21 @@
+<?php
+/* @var $this StudentFeesController */
+/* @var $model StudentFees */
+
+$this->breadcrumbs=array(
+	'Student Fees'=>array('index'),
+	$model->student_fee_id=>array('view','id'=>$model->student_fee_id),
+	'Update',
+);
+
+$this->menu=array(
+	
+	array('label'=>'Create StudentFees', 'url'=>array('create')),
+	array('label'=>'View StudentFees', 'url'=>array('view', 'id'=>$model->student_fee_id)),
+	array('label'=>'Manage StudentFees', 'url'=>array('admin')),
+);
+?>
+
+<h1>Update StudentFees <?php echo $model->student_fee_id; ?></h1>
+
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>

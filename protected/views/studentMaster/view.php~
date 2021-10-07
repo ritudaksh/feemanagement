@@ -1,0 +1,43 @@
+<?php
+/* @var $this StudentMasterController */
+/* @var $model StudentMaster */
+
+$this->breadcrumbs=array(
+	'Student Masters'=>array('index'),
+	$model->student_id,
+);
+
+$this->menu=array(
+	
+	array('label'=>'Create StudentMaster', 'url'=>array('create')),
+	array('label'=>'Update StudentMaster', 'url'=>array('update', 'id'=>$model->student_id)),
+	array('label'=>'Delete StudentMaster', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->student_id->student_class_id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage StudentMaster', 'url'=>array('admin')),
+);
+?>
+
+<h1>View Student Master <?php echo $model->student_id; ?></h1>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'student_id',
+		'addmission_no',
+		'class',
+		'section',
+		'student_name',
+		'father_name',
+		'mother_name',
+		'birth_date',
+		'phone_no',
+		'mobile_no',
+		'email',
+		'address',
+		'city',
+		'bus_no',
+		'bus_destination',
+		'gender',
+		'admission_date',
+		'student_concessiontype',
+	),
+)); ?>

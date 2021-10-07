@@ -1,0 +1,112 @@
+
+<?php
+/* @var $this LatefeeMasterController */
+/* @var $model LatefeeMaster */
+/* @var $form CActiveForm */
+?>
+
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'latefee-master-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($model); ?>
+
+
+<?php $sqllf="select * from latefee_master";
+      $latefee=Yii::app()->db->createCommand($sqllf)->queryAll();  ?>
+
+<div class="searchbox">
+  
+<table  id="table" >
+	<tr><th>Days From</th><th>Days To</th><th>Late Fees</th></tr>
+<?php $fee=""; $fee1="";$fee3="";
+foreach($latefee as $latefeedata){
+$fee=$latefeedata['days_from'];
+$fee1=$latefeedata['days_to'];
+for($j=$fee; $j<=$fee1; $j++){
+$fee3 .= $j.",";
+}
+
+?>
+	<tr><td><input type="text"  name="daysfrom" value="<?php echo($latefeedata['days_from']); ?>" readonly/></td>
+<td><input type="text" value="<?php echo($latefeedata['days_to']); ?>"  name="daysto"  /></td>
+<td><input type="text" value="<?php echo($latefeedata['latefee']); ?>"  name="latefee" id="latefee" /></td>
+</tr>
+
+
+<?php }?> 
+	</table> 
+
+
+</div>
+
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'days_from'); ?>
+		<select name="daysfrom" id="daysfrom">
+ 
+<option selected="selected" id="" value="">Please select day</option>
+<?php for($i = 1; $i < 32 ; $i++){?>
+<?php 
+
+
+$ids = explode(',',$fee3); 
+if(!in_array($i, $ids)){
+?>
+<option id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
+<?php }} ?>
+
+
+</select>
+		<?php echo $form->error($model,'days_from'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'days_to'); ?>
+		<select name="daysto" id="daysto" >
+		<option selected="true" id="" value="">Please select day</option>
+<?php for($i = 1; $i < 32 ; $i++){?>
+<?php 
+
+$ids1 = explode(',',$fee3); 
+if(!in_array($i, $ids1)){
+?>
+<option id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
+<?php }} ?>
+
+</select>
+
+
+   
+		<?php echo $form->error($model,'days_to'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'latefee'); ?>
+		<?php echo $form->textField($model,'latefee'); ?>
+		<?php echo $form->error($model,'latefee'); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+
+
+<?php $this->endWidget(); ?>
+
+
+</div><!-- form -->
+
+ 
+  
+

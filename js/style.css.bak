@@ -1,0 +1,14 @@
+.map-block .text-1 {
+	margin-left: 100px;
+padding: 0 0 0 209px;
+    width: 210px;
+}
+
+img{
+border-style: none;
+    vertical-align: top;
+margin-left: 240px;
+margin-top: 24px;
+}
+
+

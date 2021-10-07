@@ -1,0 +1,255 @@
+
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.datetimepicker.js"></script>
+<link type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.datetimepicker.css" rel="stylesheet" />
+
+
+<?php
+/* @var $this StudentMasterController */
+/* @var $model StudentMaster */
+/* @var $form CActiveForm */
+?>
+ 
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/jquery-ui.js//code.jquery.com/ui/1.9.2/jquery-ui.js">
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+ <script>
+  $(document).ready(function () {
+    var date = new Date();
+    var currentMonth = date.getMonth();
+    var currentDate = date.getDate();
+    var currentYear = date.getFullYear();
+
+    $('#datepicker').datepicker({
+        
+        dateFormat: 'yy-mm-dd'
+    });
+    $('#admdate').datepicker({
+		dateFormat:'yy-mm-dd'
+	});
+});
+  </script>
+<div class="form">
+
+	
+	
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'student-master-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($model); ?>
+
+<?php 
+$sql1="select max(addmission_no) from student_master";
+
+$querybusfees=Yii::app()->db->createCommand($sql1)->queryAll();
+
+foreach($querybusfees as $adm){
+
+}
+?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'addmission_no'); ?>
+		<?php echo $form->textField($model,'addmission_no',array('value'=>$adm['max(addmission_no)']+'1')); ?>
+		<?php echo $form->error($model,'addmission_no'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'class'); ?>
+<select name="provider" id ="single">
+<option id="1" value="1">1</option>
+<option id="2" value="2">2</option>
+<option id="2" value="3">3</option>
+<option id="2" value="4">4</option>
+<option id="2" value="5">5</option>
+<option id="2" value="6">6</option>
+<option id="2" value="7">7</option>
+<option id="2" value="8">8</option>
+<option id="2" value="9">9</option>
+<option id="2" value="10">10</option>
+<option id="2" value="11">11</option>
+<option id="2" value="12">12</option>
+</select>
+		
+		<?php echo $form->error($model,'class'); ?>
+	</div>
+
+<div class="row">
+		<?php echo $form->labelEx($model,'section'); ?>
+
+<select name="section" id ="section">
+<option id="1" value="A">A</option>
+<option id="2" value="B">B</option>
+<option id="2" value="C">C</option>
+<option id="2" value="D">D</option>
+<option id="2" value="E">E</option>
+<option id="2" value="F">F</option>
+<option id="2" value="G">G</option>
+<option id="2" value="H">H</option>
+<option id="2" value="I">I</option>
+<option id="2" value="J">J</option>
+
+</select>
+
+
+		<?php echo $form->error($model,'section'); ?>
+	</div>
+
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'student_name'); ?>
+		<?php echo $form->textField($model,'student_name',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'student_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'father_name'); ?>
+		<?php echo $form->textField($model,'father_name',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'father_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'mother_name'); ?>
+		<?php echo $form->textField($model,'mother_name',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'mother_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'birth_date'); ?>
+		<?php echo $form->textField($model,'birth_date',array('id'=>'datepicker')); ?>
+		<?php echo $form->error($model,'birth_date'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'phone_no'); ?>
+		<?php echo $form->textField($model,'phone_no'); ?>
+		<?php echo $form->error($model,'phone_no'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'mobile_no'); ?>
+		<?php echo $form->textField($model,'mobile_no'); ?>
+		<?php echo $form->error($model,'mobile_no'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->textField($model,'address',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'address'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'city'); ?>
+		<?php echo $form->textField($model,'city',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->error($model,'city'); ?>
+	</div>
+
+<?php   $sql="select * from busfees_master";    
+        
+        $querybusfees=Yii::app()->db->createCommand($sql)->queryAll();
+         
+        //foreach( $querybusfees as $data1){
+        
+
+?>
+        
+	<div class="row">
+		<?php echo $form->labelEx($model,'bus_destination'); ?>
+ 
+<select name="busdestination" id ="busdestination">
+
+<?php  foreach( $querybusfees as $data1){ ?>
+<option id="<?php echo $data1['destination']; ?>" value="<?php echo $data1['destination']; ?>"><?php echo $data1['destination']; ?></option>
+
+<?php } ?>
+
+</select>
+
+
+
+		 
+
+
+		
+<?php echo $form->error($model,'bus_destination'); ?>
+	</div>
+
+
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'gender'); ?>
+		
+<select name="gender" id ="gender">
+<option id="1" value="Male">Male</option>
+<option id="2" value="Female">Female</option>
+
+
+</select>
+
+
+
+		<?php echo $form->error($model,'gender'); ?>
+	</div>
+<?php $today=date("Y-m-d"); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'admission_date'); ?>
+		<?php echo $form->textField($model,'admission_date',array('id'=>'admdate','value'=>$today)); ?>
+		<?php echo $form->error($model,'admission_date'); ?>
+	</div>
+<?php   $sqlcon="select * from  concession_master";    
+        
+        $querycon=Yii::app()->db->createCommand($sqlcon)->queryAll();
+         
+        //foreach( $querybusfees as $data1){
+        
+
+?>
+
+        <div class="row">
+		<?php echo $form->labelEx($model,'student_concessiontype'); ?>
+	
+
+
+<select name="concessiontype" id ="concessiontype">
+
+<option id="" value="">please select concession type</option>
+<?php foreach( $querycon as $datacon){?>
+
+<option id="<?php echo $datacon['concession_type']; ?>" value="<?php echo $datacon['concession_type']; ?>"><?php echo $datacon['concession_type']; ?></option>
+
+<?php }?>
+</select>
+
+
+
+
+
+		<?php echo $form->error($model,'student_concessiontype'); ?>
+	</div>
+
+
+
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
+
+
+
+		
+</script>
+
+

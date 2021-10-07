@@ -1,0 +1,23 @@
+<?php
+/* @var $this StudentFeesController */
+/* @var $model StudentFees */
+
+$this->breadcrumbs=array(
+	'Student Fees'=>array('index'),
+	'Create',
+);
+
+$this->menu=array(
+	array('label'=>'List StudentFees', 'url'=>array('index')),
+	array('label'=>'Manage StudentFees', 'url'=>array('admin')),
+);
+?>
+
+<h1>Create StudentFees</h1>
+<?php 
+
+$this->renderPartial('_form', array('model'=>$model));
+
+//$this->renderPartial('_form', array('model'=>$model));
+
+ ?>

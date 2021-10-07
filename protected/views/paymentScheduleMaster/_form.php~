@@ -1,0 +1,207 @@
+  
+<?php
+/* @var $this PaymentScheduleMasterController */
+/* @var $model PaymentScheduleMaster */
+/* @var $form CActiveForm */
+?>
+
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>
+  <link rel="stylesheet" href="assets/multiple-select.css" />
+  
+ 
+    
+
+<div class="form">
+
+<?php 
+
+
+$form=$this->beginWidget('CActiveForm', array(
+	'id'=>'payment-schedule-master-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($model); ?>
+
+<?php 
+
+$sqlps="select * from  payment_schedule_master";
+      $payseh=Yii::app()->db->createCommand($sqlps)->queryAll();  ?>
+
+<div class="searchbox">
+  
+<table  id="table" >
+	<tr><th>Fees for Months</th><th>Pay in Month</th><th>Payment Day</th></tr>
+<?php foreach($payseh as $paydata){?>
+	<tr><td><input type="text" id="feesmonth" name="feesmonth" 
+	value="<?php echo($paydata['fees_for_months']); ?>" /></td>
+<td><input type="text"
+ value="<?php echo($paydata['pay_in_month']); ?>"  name="paymonth" id="paymonth" /></td>
+<td><input type="text"
+ value="<?php echo($paydata['payment_date']); ?>"  name="paymentdate" id="paymentdate" /></td>
+</tr>
+
+
+<?php }?> 
+	</table> 
+
+
+</div>
+	<div class="row">
+  <?php echo $form->labelEx($model,'fees_for_months'); ?>
+  
+ <?php echo $form->hiddenField($model,'fees_for_months');
+     
+      $sqlfm="select fees_for_months from  payment_schedule_master";
+      $payfm=Yii::app()->db->createCommand($sqlfm)->queryAll(); 
+	  //print_r($payfm);
+function array_remove_by_value($array, $value)
+{
+    return array_values(array_diff($array, array($value)));
+}
+
+$monthsArray = array("1", "2", "3","4","5","6","7","8","9","10","11","12");
+   for ($i=0;$i<count($monthsArray);$i++){
+     for($j=0;$j<count($payfm);$j++){  
+	   if($payfm[$j]['fees_for_months']==$monthsArray[$i]){
+	$monthsArray = array_remove_by_value($monthsArray,  $payfm[$j]['fees_for_months']);
+	 }
+	
+		}
+		
+	 }
+ // echo  ' <select name="feesformonths" id="feesformonths"   multiple>';?>
+ 
+<select name="feesformonths" id="feesformonths"   multiple>
+<?php  for ($i=0;$i<count($monthsArray);$i++){
+  // echo '<option value="'.$monthsArray[$i].'">'.$monthsArray[$i].'</option>';?>
+   <option value="<?php echo $monthsArray[$i]; ?>" ><?php echo $monthsArray[$i]; ?></option>
+   
+ <?php }
+	 
+	 
+	 ?>
+        </select>
+
+           
+  <?php echo $form->error($model,'fees_for_months'); ?>
+ </div>
+	 
+	<div class="row">
+		<?php echo $form->labelEx($model,'pay_in_month'); ?>
+		
+
+<select name="paymonth" id ="paymonth" >
+<option id="" value="">Please select months</option>
+<option id="1" value="01">01</option>
+<option id="2" value="02">02</option>
+<option id="3" value="03">03</option>
+<option id="4" value="04">04</option>
+<option id="5" value="05">05</option>
+<option id="6" value="06">06</option>
+<option id="7" value="07">07</option>
+<option id="8" value="08">08</option>
+<option id="9" value="09">09</option>
+<option id="10" value="10">10</option>
+<option id="11" value="11">11</option>
+<option id="12" value="12">12</option>
+
+
+
+</select>
+
+
+		<?php echo $form->error($model,'pay_in_month'); ?>
+	</div>
+
+
+
+<div class="row">
+		<?php echo $form->labelEx($model,'payment_date'); ?>
+		<?php echo $form->textField($model,'payment_date',array('id'=>'paymentdate' ,'name'=>'paymentdate')); ?>
+		<?php echo $form->error($model,'payment_date'); ?>
+	</div>
+
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
+
+
+
+
+
+<!--<script src="assets/jquery.min.js"></script>
+<script src="assets/jquery.multiple.select.js"></script>-->
+<script>
+	 $(document).ready(function () {
+    var date = new Date();
+    var currentMonth = date.getMonth();
+    var todayDate = date.getDate();
+    var currentYear = date.getFullYear();
+
+    $('#paymentdate').datepicker({
+        
+        dateFormat: 'yy-mm-dd'
+    });
+   
+});
+
+
+
+	$(function() {
+		
+        $('#feesformonths').change(function() {
+           var fld = document.getElementById('feesformonths');
+           var values = [];
+          for (var i = 0; i < fld.options.length; i++) {
+         if (fld.options[i].selected) {
+        values.push(fld.options[i].value);
+		
+	
+  }
+}
+        var selectedvalues=values.join(',');
+        alert(selectedvalues);
+		var url="<?php echo Yii::app()->createUrl('paymentScheduleMaster/Create'); ?>";
+     $.ajax({
+     type: "GET",
+        url:url,
+        data: {'selectedvalues':selectedvalues},
+        success: function(data) {    
+        alert("Success"+data);
+
+        }
+     });
+    });
+
+	});
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+

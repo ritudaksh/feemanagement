@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * This is the model class for table "student_fees".
+ *
+ * The followings are the available columns in table 'student_fees':
+ * @property integer $student_fee_id
+ * @property integer $student_id
+ * @property integer $student_class_id
+ * @property string $fees_for_months
+ * @property integer $annual_fees_paid
+ * @property integer $tuition_fees_paid
+ * @property integer $funds_fees_paid
+ * @property integer $sports_fees_paid
+ * @property integer $admission_fees_paid
+ * @property integer $security_paid
+ * @property integer $late_fees_paid
+ * @property integer $dayboarding_fees_paid
+ * @property integer $bus_fees_paid
+ * @property integer $date_payment
+ * @property string $payment_mode
+ * @property string $cheq_no
+ * @property string $bank_name
+ * @property double $concession_applied
+ * @property string $concession_type
+ *
+ * The followings are the available model relations:
+ * @property StudentMaster $studentFee
+ */
+class StudentFees extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'student_fees';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('student_id, student_class_id, fees_for_months, annual_fees_paid, tuition_fees_paid, funds_fees_paid, sports_fees_paid, admission_fees_paid, security_paid,  dayboarding_fees_paid, bus_fees_paid, payment_mode, concession_applied, concession_type', 'required'),
+			array('student_id, student_class_id, annual_fees_paid, tuition_fees_paid, funds_fees_paid, sports_fees_paid, admission_fees_paid, security_paid, late_fees_paid, dayboarding_fees_paid, bus_fees_paid', 'numerical', 'integerOnly'=>true),
+			array('concession_applied', 'numerical'),
+			array('fees_for_months, cheq_no', 'length', 'max'=>20),
+			array('payment_mode', 'length', 'max'=>100),
+			array('bank_name', 'length', 'max'=>30),
+			array('concession_type', 'length', 'max'=>30),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('student_fee_id, student_id, student_class_id, fees_for_months, annual_fees_paid, tuition_fees_paid, funds_fees_paid, sports_fees_paid, admission_fees_paid, security_paid, late_fees_paid, dayboarding_fees_paid, bus_fees_paid, date_payment, payment_mode, cheq_no, bank_name, concession_applied, concession_type', 'safe', 'on'=>'search'),
+		);
+	}
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'studentFee' => array(self::BELONGS_TO, 'StudentMaster', 'student_fee_id'),
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'student_fee_id' => 'Student Fee',
+			'student_id' => 'Student',
+			'student_class_id' => 'Student Class',
+			'fees_for_months' => 'Fees For Months',
+			'annual_fees_paid' => 'Annual Fees Paid',
+			'tuition_fees_paid' => 'Tuition Fees Paid',
+			'funds_fees_paid' => 'Funds Fees Paid',
+			'sports_fees_paid' => 'Sports Fees Paid',
+			'admission_fees_paid' => 'Admission Fees Paid',
+			'security_paid' => 'Security Paid',
+			'late_fees_paid' => 'Late Fees Paid',
+			'dayboarding_fees_paid' => 'Dayboarding Fees Paid',
+			'bus_fees_paid' => 'Bus Fees Paid',
+			'date_payment' => 'Date Payment',
+			'payment_mode' => 'Payment Mode',
+			'cheq_no' => 'Cheq No',
+			'bank_name' => 'Bank Name',
+			'concession_applied' => 'Concession Applied',
+			'concession_type' => 'Concession Type',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('student_fee_id',$this->student_fee_id);
+		$criteria->compare('student_id',$this->student_id);
+		$criteria->compare('student_class_id',$this->student_class_id);
+		$criteria->compare('fees_for_months',$this->fees_for_months,true);
+		$criteria->compare('annual_fees_paid',$this->annual_fees_paid);
+		$criteria->compare('tuition_fees_paid',$this->tuition_fees_paid);
+		$criteria->compare('funds_fees_paid',$this->funds_fees_paid);
+		$criteria->compare('sports_fees_paid',$this->sports_fees_paid);
+		$criteria->compare('admission_fees_paid',$this->admission_fees_paid);
+		$criteria->compare('security_paid',$this->security_paid);
+		$criteria->compare('late_fees_paid',$this->late_fees_paid);
+		$criteria->compare('dayboarding_fees_paid',$this->dayboarding_fees_paid);
+		$criteria->compare('bus_fees_paid',$this->bus_fees_paid);
+		$criteria->compare('date_payment',$this->date_payment);
+		$criteria->compare('payment_mode',$this->payment_mode,true);
+		$criteria->compare('cheq_no',$this->cheq_no,true);
+		$criteria->compare('bank_name',$this->bank_name,true);
+		$criteria->compare('concession_applied',$this->concession_applied);
+		$criteria->compare('concession_type',$this->concession_type,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return StudentFees the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+}

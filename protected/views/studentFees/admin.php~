@@ -1,0 +1,80 @@
+<?php
+/* @var $this StudentFeesController */
+/* @var $model StudentFees */
+
+$this->breadcrumbs=array(
+	'Student Fees'=>array('index'),
+	'Manage',
+);
+
+$this->menu=array(
+	
+	array('label'=>'Create StudentFees', 'url'=>array('create')),
+);
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#student-fees-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+?>
+
+<h1>Manage Student Fees</h1>
+
+<p>
+You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+</p>
+
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'student-fees-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'student_fee_id',
+                
+		'student_id',
+                'student_name',
+		'student_class_id',
+                'section',
+		'fees_for_months',
+                 'date_payment',
+                 'Total_amount',
+		'amount_paid',
+		/*'annual_fees_paid',
+		'tuition_fees_paid',
+		
+		'funds_fees_paid',
+		'sports_fees_paid',
+		'admission_fees_paid',
+		'security_paid',
+		'late_fees_paid',
+		'dayboarding_fees_paid',
+		'bus_fees_paid',
+		'date_payment',
+		'payment_mode',
+		'cheq_no',
+		'bank_name',
+		'concession_applied',
+		'concession_type',
+		*/
+		
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
+)); ?>

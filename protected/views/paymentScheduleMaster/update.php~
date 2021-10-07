@@ -1,0 +1,21 @@
+<?php
+/* @var $this PaymentScheduleMasterController */
+/* @var $model PaymentScheduleMaster */
+
+$this->breadcrumbs=array(
+	'Payment Schedule Masters'=>array('index'),
+	$model->schedule_id=>array('view','id'=>$model->schedule_id),
+	'Update',
+);
+
+$this->menu=array(
+	array('label'=>'List PaymentScheduleMaster', 'url'=>array('index')),
+	array('label'=>'Create PaymentScheduleMaster', 'url'=>array('create')),
+	array('label'=>'View PaymentScheduleMaster', 'url'=>array('view', 'id'=>$model->schedule_id)),
+	array('label'=>'Manage PaymentScheduleMaster', 'url'=>array('admin')),
+);
+?>
+
+<h1>Update PaymentScheduleMaster <?php echo $model->schedule_id; ?></h1>
+
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>

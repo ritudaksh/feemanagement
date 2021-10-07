@@ -1,0 +1,169 @@
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/jquery-ui.js//code.jquery.com/ui/1.9.2/jquery-ui.js">
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+
+
+<?php
+/* @var $this FeesMasterController */
+/* @var $model FeesMaster */
+/* @var $form CActiveForm */
+?>
+
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'fees-master-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($model); ?>
+<div class="form0">
+	<div class="row0">
+		<?php echo $form->labelEx($model,'class_no'); ?>
+		<?php echo $form->dropDownList($model,'class_no',
+	array('pre-nursery' => 'Pre-nursery', 'LKG' => 'LKG', 
+	'UKG' => 'UKG', '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+		 '5' => '5',
+		 '6' => '6',
+		 '7' => '7',
+		 '8' => '8',
+		 '9' => '9',
+		 '10' => '10',
+		 '11' => '11',
+		 '12' => '12'
+		 ),
+array('empty' => '--Choose the class no--'),array('size'=>25,'maxlength'=>25)); ?>
+		
+		<?php echo $form->error($model,'class_no'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'annual_fees'); ?>
+		<?php echo $form->textField($model,'annual_fees'); ?>
+		<?php echo $form->error($model,'annual_fees'); ?>
+	</div>
+
+	<div class="row1">
+		<?php echo $form->labelEx($model,'tuition_fees'); ?>
+		<?php echo $form->textField($model,'tuition_fees'); ?>
+		<?php echo $form->error($model,'tuition_fees'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'funds_fees'); ?>
+		<?php echo $form->textField($model,'funds_fees'); ?>
+		<?php echo $form->error($model,'funds_fees'); ?>
+	</div>
+
+	<div class="row1">
+		<?php echo $form->labelEx($model,'sports_fees'); ?>
+		<?php echo $form->textField($model,'sports_fees'); ?>
+		<?php echo $form->error($model,'sports_fees'); ?>
+	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'activity_fees'); ?>
+		<?php echo $form->textField($model,'activity_fees'); ?>
+		<?php echo $form->error($model,'activity_fees'); ?>
+	</div>
+	<div class="row1">
+		<?php echo $form->labelEx($model,'admission_fees'); ?>
+		<?php echo $form->textField($model,'admission_fees'); ?>
+		<?php echo $form->error($model,'admission_fees'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'security_fees'); ?>
+		<?php echo $form->textField($model,'security_fees'); ?>
+		<?php echo $form->error($model,'security_fees'); ?>
+	</div>
+
+	<div class="row1">
+		<?php echo $form->labelEx($model,'dayboarding_fees'); ?>
+		<?php echo $form->textField($model,'dayboarding_fees'); ?>
+		<?php echo $form->error($model,'dayboarding_fees'); ?>
+	</div>
+
+	<!--<div class="row">
+		<?php echo $form->labelEx($model,'dueby_date'); ?>
+		<?php echo $form->textField($model,'dueby_date',array('id'=>'duedate')); ?>
+		<?php echo $form->error($model,'dueby_date'); ?>
+	</div>-->
+<?php $today=date("Y-m-d");  
+$date = split ("-",$today); 
+$lastyear=$date[0]-1;
+
+?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'valid_form'); ?>
+		<?php echo $form->textField($model,'valid_form',array('id'=>'validfrom','value'=>$lastyear.'-04-01')); ?>
+		<?php echo $form->error($model,'valid_form'); ?>
+	</div>
+
+	<div class="row1">
+		<?php echo $form->labelEx($model,'valide_to'); ?>
+		<?php echo $form->textField($model,'valide_to',array('id'=>'validto','value'=>$date[0].'-03-31'))?>
+		<?php echo $form->error($model,'valide_to'); ?>
+	</div>
+</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
+
+<script>
+  $(document).ready(function () {
+    var date = new Date();
+    //var currentMonth = date.getMonth();
+   // var currentDate = date.getDate();
+    //var currentYear = date.getFullYear();
+
+
+//var lastyear=currentYear-1;
+//var validto=currentyear+'-03-31';
+//var validfrom=lastyear+'04-01'
+
+//document.getElementbyId('validto').value=validto;
+//document.getElementbyId('validfrom').value=validfrom;
+
+
+   // $('#duedate').datepicker({
+        
+      //  dateFormat: 'yy-mm-dd'
+    //});
+    $('#validfrom').datepicker({
+		dateFormat:'yy-mm-dd'
+                
+
+
+	});
+	$('#validto').datepicker({
+		dateFormat:'yy-mm-dd'
+                
+	});
+});
+  </script>
+
+
+		
+</script>
+
+
+
+
+
+
+
+
+
+
